@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Currency Converter</title>
+    <style>
+        body { font:Impact; text-align: center; margin-top: 50px; }
+        .flag-image { width: 200px; height: auto; margin: 120px; }
+    </style>
+</head>
+<body>
+    <h1><B><U>Currency Converter</U></B></h1>
+    <hr>
+
+
+    <form method="POST" action="/">
+        <label for="from_currency">From:</label>
+        <select id="from_currency" name="from_currency">
+            {% for currency in currencies %}
+                <option value="{{ currency }}" {% if currency == from_currency %}selected{% endif %}>{{ currency }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="to_currency">To:</label>
+        <select id="to_currency" name="to_currency">
+            {% for currency in currencies %}
+                <option value="{{ currency }}" {% if currency == to_currency %}selected{% endif %}>{{ currency }}</option>
+            {% endfor %}
+        </select>
+        <br>
+
+        <label for="amount">Amount:</label>
+        <input type="number" id="amount" name="amount" value="{{ amount }}" required>
+
+        <button type="submit">Convert</button>
+    </form>
+
+    {% if result %}
+        <div id="result" style="margin-top: 20px;">
+            <p>{{ result }}</p>
+            <img src="/static/images/flags/{{ from_currency }}.png" alt="{{ from_currency }} flag" class="flag-image">
+            <img src="/static/images/flags/{{ to_currency }}.png" alt="{{ to_currency }} flag" class="flag-image">
+        </div>
+    {% endif %}
+
+</body>
+</html>
